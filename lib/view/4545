@@ -1,0 +1,60 @@
+Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.grey,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Flutter"),
+            Text(
+              "NewsApp",
+              style: TextStyle(color: Colors.orange),
+            ),
+          ],
+        ),
+        elevation: 0.0,
+      ),
+      body: _isloading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Container(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 70,
+                        child: ListView.builder(
+                            physics: ClampingScrollPhysics(),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: categories.length,
+                            itemBuilder: (context, index) {
+                              return CategoryItem(
+                                categoryName: categories[index].categoryName,
+                                imageUrl: categories[index].imageUrl,
+                              );
+                            }),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: 10),
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            itemCount: articles.length,
+                            itemBuilder: (context, index) {
+                              return ArticleItem(
+                                imageUrl: articles[index].imageToUrl,
+                                title: articles[index].title,
+                                description: articles[index].description,
+                                url: articles[index].url,
+                              );
+                            }),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+    );
